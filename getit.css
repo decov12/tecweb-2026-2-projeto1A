@@ -1,0 +1,188 @@
+/*
+Algumas informações úteis e dicas:
+  - Fontes disponíveis:
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Permanent Marker', cursive;
+  - Cores:
+    Tons de amarelo:
+      #e4fc2b
+      #e0d426
+      #f7d736
+      #e0af26
+      #fcb02b
+    Tons de cinza:
+      #2c2c2c
+      #4c4c4c
+    Cores dos cards:
+      #ead3a7
+      #9de0f5
+      #ef89ba
+      #fae890
+      #abe9c1
+  - Sombra: https://codepen.io/sdthornton/pen/wBZdXq
+ */
+
+html,
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+/* ===== App bar ===== */
+.appbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  background-color: #f7d736;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.appbar .logo {
+  height: 50px;
+}
+
+.appbar .subtitle {
+  font-size: 18px;
+  color: #2c2c2c;
+}
+
+/* ===== Container e formulário ===== */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 500px;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+}
+
+.form-card-title {
+  border: none;
+  outline: none;
+  font-size: 24px;
+  color: #4c4c4c;
+}
+
+.form-card textarea {
+  border: none;
+  outline: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  resize: none;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  padding: 12px;
+  background-color: #f7d736;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 500px;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+}
+
+.form-card-title {
+  border: none;
+  outline: none;
+  font-size: 24px;
+  color: #4c4c4c;
+}
+
+.form-card textarea {
+  border: none;
+  outline: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  resize: none;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  padding: 12px;
+  background-color: #f7d736;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+/* ===== Cards ===== */
+.card-container {
+  align-self: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 0 60px 60px;
+}
+
+.card {
+  width: 220px;
+  min-height: 140px;
+  padding: 16px;
+  border-radius: 6px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-title {
+  font-family: "Permanent Marker", cursive;
+  font-size: 20px;
+  color: #2c2c2c;
+}
+
+.card-content p {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  color: #4c4c4c;
+}
+
+/* Cores (uma classe pra cada cor sorteada pelo JS) */
+.card-color-1 { background-color: #ead3a7; }
+.card-color-2 { background-color: #9de0f5; }
+.card-color-3 { background-color: #ef89ba; }
+.card-color-4 { background-color: #fae890; }
+.card-color-5 { background-color: #abe9c1; }
+
+/* Rotação (uma classe pra cada ângulo sorteado pelo JS) */
+.card-rotation-1  { transform: rotate(-10deg); }
+.card-rotation-2  { transform: rotate(-8deg); }
+.card-rotation-3  { transform: rotate(-6deg); }
+.card-rotation-4  { transform: rotate(-4deg); }
+.card-rotation-5  { transform: rotate(-2deg); }
+.card-rotation-6  { transform: rotate(0deg); }
+.card-rotation-7  { transform: rotate(2deg); }
+.card-rotation-8  { transform: rotate(4deg); }
+.card-rotation-9  { transform: rotate(6deg); }
+.card-rotation-10 { transform: rotate(8deg); }
+.card-rotation-11 { transform: rotate(10deg); }
