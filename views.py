@@ -26,10 +26,26 @@ def index(request):
     # Cria uma lista de <li>'s para cada anotação
     notes_li = []
     for nota in db.get_all():
-        notes_li.append(NOTE_TEMPLATE.format(title=nota.title, details=nota.content))
+        notes_li.append(NOTE_TEMPLATE.format(id=nota.id, title=nota.title, details=nota.content))
 
     notes = '\n'.join(notes_li)
 
     body = load_template('index.html').format(notes=notes)
     response = build_response(body=body)
     return response
+
+def confirmar_exclusao(note_id):
+    nota = None
+    for n in db.get_all():
+        if n.id == note_id:
+            nota = n
+            break
+
+    body = load_template('confirmar_exclusao.html').format(
+        id=nota.id, title=nota.title, content=nota.content
+    )
+    return build_response(body=body)
+
+def excluir_nota(note_id):
+    db.delete(note_id)
+    return build_response(code=303, reason='See Other', headers='Location: /')
