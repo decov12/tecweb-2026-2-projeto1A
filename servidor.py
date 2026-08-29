@@ -1,8 +1,7 @@
 import socket
 from pathlib import Path
-from utils import extract_route, read_file, build_response
+from utils import extract_route, read_file, build_response, load_template
 from views import index, excluir_nota, confirmar_exclusao, editar_nota, salvar_edicao
-
 CUR_DIR = Path(__file__).parent
 SERVER_HOST = 'localhost'
 SERVER_PORT = 8080
@@ -44,10 +43,9 @@ while True:
             response = editar_nota(note_id)
 
     else:
-        response = build_response()
+        body = load_template('404.html')
+        response = build_response(body=body, code=404, reason='Not Found')
 
     client_connection.sendall(response)
-
     client_connection.close()
-
 server_socket.close()
