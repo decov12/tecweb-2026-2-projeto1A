@@ -1,7 +1,7 @@
 import socket
 from pathlib import Path
 from utils import extract_route, read_file, build_response
-from views import index,excluir_nota,confirmar_exclusao
+from views import index, excluir_nota, confirmar_exclusao, editar_nota, salvar_edicao
 
 CUR_DIR = Path(__file__).parent
 SERVER_HOST = 'localhost'
@@ -35,6 +35,14 @@ while True:
     elif route.startswith('delete/'):
         note_id = int(route.split('/')[1]) 
         response = confirmar_exclusao(note_id)
+
+    elif route.startswith('edit/'):
+        note_id = int(route.split('/')[1])
+        if request.startswith('POST'):
+            response = salvar_edicao(note_id, request)
+        else:
+            response = editar_nota(note_id)
+
     else:
         response = build_response()
 

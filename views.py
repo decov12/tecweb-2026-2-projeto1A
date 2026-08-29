@@ -49,3 +49,26 @@ def confirmar_exclusao(note_id):
 def excluir_nota(note_id):
     db.delete(note_id)
     return build_response(code=303, reason='See Other', headers='Location: /')
+
+def editar_nota(note_id):
+    nota = db.get(note_id)
+    body = load_template('editar_nota.html').format(
+        id=nota.id, title=nota.title, content=nota.content
+    )
+    return build_response(body=body)
+
+
+def salvar_edicao(note_id, request):
+    request = request.replace('\r', '')
+    partes = request.split('\n\n')
+    corpo = partes[1]
+    params = {}
+    for chave_valor in corpo.split('&'):
+        if not chave_valor:
+            continue
+        chave, valor = chave_valor.split('=', 1)
+        params[unquote_plus(chave)] = unquote_plus(valor)
+
+    db.update(Note(id=note_id, title=params['titulo'], content=params['detalhes']))
+
+    return build_response(code=303, reason='See Other', headers='Location: /')
