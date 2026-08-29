@@ -1,8 +1,9 @@
 from urllib.parse import unquote_plus
-from utils import load_data, save_note, load_template, build_response
+from utils import  load_template, build_response
+from database import Database, Note
 
 NOTE_TEMPLATE = load_template('components/note.html')
-
+db = Database('notes')
 
 def index(request):
     if request.startswith('POST'):
@@ -17,15 +18,15 @@ def index(request):
             params[unquote_plus(chave)] = unquote_plus(valor)
 
         # Adiciona a nova anotação ao arquivo notes.json
-        save_note(params['titulo'], params['detalhes'])
+        db.add(Note(title=params['titulo'], content=params['detalhes'])) 
 
         # Redireciona para a mesma página com uma nova requisição GET
         return build_response(code=303, reason='See Other', headers='Location: /')
 
     # Cria uma lista de <li>'s para cada anotação
     notes_li = []
-    for dados in load_data('notes.json'):
-        notes_li.append(NOTE_TEMPLATE.format(title=dados['titulo'], details=dados['detalhes']))
+    for nota in db.get_all():
+        notes_li.append(NOTE_TEMPLATE.format(title=nota.title, details=nota.content))
 
     notes = '\n'.join(notes_li)
 
