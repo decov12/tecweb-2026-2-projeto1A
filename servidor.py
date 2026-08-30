@@ -1,7 +1,7 @@
 import socket
 from pathlib import Path
 from utils import extract_route, read_file, build_response, load_template
-from views import index, excluir_nota, confirmar_exclusao, editar_nota, salvar_edicao
+from views import index, excluir_nota, confirmar_exclusao, editar_nota, salvar_edicao, favoritar_nota
 CUR_DIR = Path(__file__).parent
 SERVER_HOST = 'localhost'
 SERVER_PORT = 8080
@@ -41,6 +41,10 @@ while True:
             response = salvar_edicao(note_id, request)
         else:
             response = editar_nota(note_id)
+
+    elif route.startswith('favoritar/'):
+        note_id = int(route.split('/')[1])
+        response = favoritar_nota(note_id)
 
     else:
         body = load_template('404.html')

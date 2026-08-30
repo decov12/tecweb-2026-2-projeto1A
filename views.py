@@ -26,7 +26,8 @@ def index(request):
     # Cria uma lista de <li>'s para cada anotação
     notes_li = []
     for nota in db.get_all():
-        notes_li.append(NOTE_TEMPLATE.format(id=nota.id, title=nota.title, details=nota.content))
+        estrela = '⭐' if nota.favorito else '☆'
+        notes_li.append(NOTE_TEMPLATE.format(id=nota.id, title=nota.title, details=nota.content, estrela=estrela))
 
     notes = '\n'.join(notes_li)
 
@@ -71,4 +72,8 @@ def salvar_edicao(note_id, request):
 
     db.update(Note(id=note_id, title=params['titulo'], content=params['detalhes']))
 
+    return build_response(code=303, reason='See Other', headers='Location: /')
+
+def favoritar_nota(note_id):
+    db.toggle_favorito(note_id)
     return build_response(code=303, reason='See Other', headers='Location: /')
