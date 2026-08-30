@@ -17,13 +17,15 @@ def index(request):
             chave, valor = chave_valor.split('=', 1)
             params[unquote_plus(chave)] = unquote_plus(valor)
 
-        # Adiciona a nova anotação ao arquivo notes.json
-        db.add(Note(title=params['titulo'], content=params['detalhes'])) 
+        if not params.get('titulo') or not params.get('detalhes'):
+            body = load_template('index.html').format(notes='<p style="color:red;">Título e conteúdo são obrigatórios.</p>')
+            return build_response(body=body)
 
-        # Redireciona para a mesma página com uma nova requisição GET
+        db.add(Note(title=params['titulo'], content=params['detalhes']))
+
         return build_response(code=303, reason='See Other', headers='Location: /')
 
-    # Cria uma lista de <li>'s para cada anotação
+    # Cria uma lista de cards para cada anotação
     notes_li = []
     for nota in db.get_all():
         estrela = '⭐' if nota.favorito else '☆'
