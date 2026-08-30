@@ -23,11 +23,7 @@ class Database:
         ''')
         self.conn.commit()
 
-    def add(self, note):
-        cursor = self.conn.cursor()
-        cursor.execute('''
-            INSERT INTO note (title,content) VALUES (''' + "'" + str(note.title) + "'" + ',' + "'" + str(note.content) + "'" + ');' )
-        self.conn.commit()
+    
 
     def get_all(self):
         cursor = self.conn.execute("SELECT id, title, content, favorito FROM note ORDER BY favorito DESC, id ASC")
@@ -36,17 +32,19 @@ class Database:
             lista.append(Note(id=linha[0], title=linha[1], content=linha[2], favorito=bool(linha[3])))
         return lista
     
-    def update(self, entry):
+    def add(self, note):
         cursor = self.conn.cursor()
-        cursor.execute('''
-            UPDATE note SET title = ''' + "'" + str(entry.title) + "', content = '" + str(entry.content) + "'" + ' WHERE id = ' + str(entry.id)
-            )
+        cursor.execute('INSERT INTO note (title, content) VALUES (?, ?)', (note.title, note.content))
         self.conn.commit()
 
-    def delete(self,note_id):
+    def update(self, entry):
         cursor = self.conn.cursor()
-        cursor.execute('''DELETE FROM note WHERE id = ' ''' + str(note_id)+"'"
-            )
+        cursor.execute('UPDATE note SET title = ?, content = ? WHERE id = ?', (entry.title, entry.content, entry.id))
+        self.conn.commit()
+
+    def delete(self, note_id):
+        cursor = self.conn.cursor()
+        cursor.execute('DELETE FROM note WHERE id = ?', (note_id,))
         self.conn.commit()
 
     def get(self, note_id):
